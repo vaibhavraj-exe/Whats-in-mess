@@ -46,52 +46,87 @@ let min = now.getMinutes()
 console.log(hrs)
 
 if (hrs < 9) {
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("BREAKFAST (Working day 7:00 - 9:00, Holiday 7:30 - 9:00)")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
+    
     messDict[day][0].forEach(e => {
         let node = document.createElement("li")
-        let textnode = document.createTextNode(e)
+        let textnode = document.createTextNode("🔷 "+ e)
         node.appendChild(textnode)
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
 }else if (hrs < 13){
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("LUNCH (Working day 11:30 - 1:30, Holiday 12:00 - 1:30)")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
+    
     messDict[day][1].forEach(e => {
         let node = document.createElement("li")
-        let textnode = document.createTextNode(e)
+        let textnode = document.createTextNode("🔷 "+ e)
         node.appendChild(textnode)
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
 }else if (hrs == 13 && min < 30){
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("LUNCH (Working day 11:30 - 1:30, Holiday 12:00 - 1:30)")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
+    
     messDict[day][1].forEach(e => {
         let node = document.createElement("li")
-        let textnode = document.createTextNode(e)
+        let textnode = document.createTextNode("🔷 "+ e)
         node.appendChild(textnode)
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
 }else if (hrs < 17){
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("Snacks (4:30 - 5:30)")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
+
     messDict[day][2].forEach(e => {
         let node = document.createElement("li")
-        let textnode = document.createTextNode(e)
+        let textnode = document.createTextNode("🔷 "+ e)
         node.appendChild(textnode)
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
 }else if (hrs == 17 && min < 30){
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("Snacks (4:30 - 5:30)")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
+
     messDict[day][2].forEach(e => {
         let node = document.createElement("li")
-        let textnode = document.createTextNode(e)
+        let textnode = document.createTextNode("🔷 "+ e)
         node.appendChild(textnode)
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
 }else if (hrs < 21){
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("DINNER 7:30 - 9:00")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
+    
     messDict[day][3].forEach(e => {
         let node = document.createElement("li")
-        let textnode = document.createTextNode(e)
+        let textnode = document.createTextNode("🔷 "+ e)
         node.appendChild(textnode)
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
+}else if (hrs < 24){
+    let header = document.createElement("H3")
+    let headerText = document.createTextNode("404 GOOD NIGHT 🌙")
+    header.appendChild(headerText)
+    document.getElementById("header").appendChild(header)
 }
 
