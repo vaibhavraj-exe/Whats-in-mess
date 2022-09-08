@@ -28,3 +28,21 @@ ul {
 .me {
     margin-top: 20px;
 }
+
+.buttons {
+    white-space: nowrap;
+}
+
+#previous {
+    display: inline-block;
+    margin: 10px;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+#next {
+    display: inline-block;
+    margin: 10px;
+    font-weight: bold;
+    color: aliceblue;
+}

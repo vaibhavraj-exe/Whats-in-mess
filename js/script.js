@@ -41,11 +41,9 @@ let day = now.getDay()
 let hrs = now.getHours()
 let min = now.getMinutes()
 
+let current = "breakfast"
 
-
-console.log(hrs)
-
-if (hrs < 9) {
+const setBreakfastRoutine = () => {
     let header = document.createElement("H3")
     let headerText = document.createTextNode("BREAKFAST (Working day 7:00 - 9:00, Holiday 7:30 - 9:00)")
     header.appendChild(headerText)
@@ -58,7 +56,9 @@ if (hrs < 9) {
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
-}else if (hrs < 13){
+}
+
+const setLunchRoutine = () => {
     let header = document.createElement("H3")
     let headerText = document.createTextNode("LUNCH (Working day 11:30 - 1:30, Holiday 12:00 - 1:30)")
     header.appendChild(headerText)
@@ -71,20 +71,9 @@ if (hrs < 9) {
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
-}else if (hrs == 13 && min < 30){
-    let header = document.createElement("H3")
-    let headerText = document.createTextNode("LUNCH (Working day 11:30 - 1:30, Holiday 12:00 - 1:30)")
-    header.appendChild(headerText)
-    document.getElementById("header").appendChild(header)
-    
-    messDict[day][1].forEach(e => {
-        let node = document.createElement("li")
-        let textnode = document.createTextNode("🔷 "+ e)
-        node.appendChild(textnode)
-        node.setAttribute("class", "list-group-item");
-        document.getElementById("foodlist").appendChild(node);
-    })
-}else if (hrs < 17){
+}
+
+const setSnacksRoutine = () => {
     let header = document.createElement("H3")
     let headerText = document.createTextNode("Snacks (4:30 - 5:30)")
     header.appendChild(headerText)
@@ -97,20 +86,9 @@ if (hrs < 9) {
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
-}else if (hrs == 17 && min < 30){
-    let header = document.createElement("H3")
-    let headerText = document.createTextNode("Snacks (4:30 - 5:30)")
-    header.appendChild(headerText)
-    document.getElementById("header").appendChild(header)
+}
 
-    messDict[day][2].forEach(e => {
-        let node = document.createElement("li")
-        let textnode = document.createTextNode("🔷 "+ e)
-        node.appendChild(textnode)
-        node.setAttribute("class", "list-group-item");
-        document.getElementById("foodlist").appendChild(node);
-    })
-}else if (hrs < 21){
+const setDinnerRoutine = () =>{
     let header = document.createElement("H3")
     let headerText = document.createTextNode("DINNER 7:30 - 9:00")
     header.appendChild(headerText)
@@ -123,6 +101,30 @@ if (hrs < 9) {
         node.setAttribute("class", "list-group-item");
         document.getElementById("foodlist").appendChild(node);
     })
+}
+
+if (hrs < 9) {
+    current = "breakfast"
+    setBreakfastRoutine()
+    document.getElementById("previous").classList.remove("btn-primary");
+    document.getElementById("previous").classList.add("btn-secondary");
+}else if (hrs < 13){
+    current = "lunch"
+    setLunchRoutine()
+}else if (hrs == 13 && min < 30){
+    current = "lunch"
+    setLunchRoutine()
+}else if (hrs < 17){
+    current = "snacks"
+    setSnacksRoutine()
+}else if (hrs == 17 && min < 30){
+    current = "snacks"
+    setSnacksRoutine()
+}else if (hrs < 21){
+    current = "dinner"
+    setDinnerRoutine()
+    document.getElementById("next").classList.remove("btn-primary");
+    document.getElementById("next").classList.add("btn-secondary");
 }else if (hrs < 24){
     let header = document.createElement("H3")
     let headerText = document.createTextNode("404 GOOD NIGHT 🌙")
@@ -130,3 +132,54 @@ if (hrs < 9) {
     document.getElementById("header").appendChild(header)
 }
 
+
+document.getElementById("previous").onclick = () => {
+    
+    switch (current) {
+        case "breakfast":
+            break;
+        case "lunch":
+            document.getElementById("foodlist").innerHTML = ""
+            document.getElementById("header").innerHTML = ""
+            document.getElementById("previous").classList.remove("btn-primary");
+            document.getElementById("previous").classList.add("btn-secondary");
+            setBreakfastRoutine()
+            current = "breakfast"
+            break
+        case "dinner":
+            document.getElementById("foodlist").innerHTML = ""
+            document.getElementById("header").innerHTML = ""
+            document.getElementById("next").classList.remove("btn-secondary");
+            document.getElementById("next").classList.add("btn-primary");
+            setLunchRoutine()
+            current = "lunch"
+        default:
+            break;
+    }
+}
+
+document.getElementById("next").onclick = () => {
+    
+    switch (current) {
+        case "breakfast":
+            document.getElementById("foodlist").innerHTML = ""
+            document.getElementById("header").innerHTML = ""
+            document.getElementById("previous").classList.remove("btn-secondary");
+            document.getElementById("previous").classList.add("btn-primary");
+            setLunchRoutine()
+            current = "lunch"
+            break;
+        case "lunch":
+            document.getElementById("foodlist").innerHTML = ""
+            document.getElementById("header").innerHTML = ""
+            document.getElementById("next").classList.remove("btn-primary");
+            document.getElementById("next").classList.add("btn-secondary");
+            setDinnerRoutine()
+            current = "dinner"
+            break
+        case "dinner":
+            break
+        default:
+            break;
+    }
+}
