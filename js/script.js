@@ -33,7 +33,7 @@ let messDict =[
     [["Bread", "Butter", "Jam", "Chappathi", "Veg Khorma", "Idiyappam (Tomato & Lemon)", "Chutney", "Tea/Coffee/Milk", "Boiled Egg"],
     ["Poori", "White peas Curry", "Aloo Bindli sabji", "Bahara Pulao / Steamed Rice", "Dal Lasooni", "Paruppu urundai kozhambu", "Kootu", "Rasam", "Buttermilk", "Pickle", "Fryums"],
     ["Samosa / Aloo Bonda", "Tea/Coffee"],
-    ["Panjabi Paratha", "Aloo Capsicum Sabji", "Steamed Rice", "Rajma curry", "Masala Dal", "Idly", "Chutney", "Sambar", "Poriyal", "Rasam", "Pickle", "Fryums", "Veg salad", "Milk", "Seasonal Fruits", "Ice Cream / Cone Ice Cream", "Non-veg Gravy"]],
+    ["Panjabi Paratha", "Aloo Capsicum Sabji", "Steamed Rice", "Rajma curry", "Masala Dal", "Idly", "Chutney", "Sambar", "Poriyal", "Rasam", "Pickle", "Fryums", "Veg salad", "Milk", "Seasonal Fruits", "Fish Gravy"]],
 
 ]
     
@@ -165,7 +165,12 @@ document.getElementById("previous").onclick = () => {
             document.getElementById("foodlist").innerHTML = ""
             document.getElementById("header").innerHTML = ""
 
-            day-=1;
+            if(day!=0){
+                day-=1;
+            }else {
+                day = 6;
+            }
+            
             updateDay(day)
             setDinnerRoutine();
             current = "dinner"
@@ -218,7 +223,12 @@ document.getElementById("next").onclick = () => {
             document.getElementById("foodlist").innerHTML = ""
             document.getElementById("header").innerHTML = ""
 
-            day+=1;
+            if (day!=6){
+                day+=1;
+            }else {
+                day = 0;
+            }
+            
             updateDay(day)
             setBreakfastRoutine()
             current= "breakfast";
