@@ -237,3 +237,20 @@ document.getElementById("next").onclick = () => {
             break;
     }
 }
+
+
+// Add to home screen 
+
+window.onload = (e) => {
+    e.preventDefault();
+
+}
+
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").then(regesration => {
+        console.log(regesration)
+    }).catch(e => {
+        console.log("SW regestration failed")
+        console.log(e)
+    })
+}
