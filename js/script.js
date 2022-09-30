@@ -27,7 +27,7 @@ let messDict =[
     ["Madras Paratha", "Mattar Paneer Masala", "Steamed Rice", "Dal tadka", "Sambar", "Dosa Chutney", "Rasam", "Pickle", "Fryums", "Veg salad", "Milk" , "Banana", "Non-Veg Gravy"]],
     // Friday
     [["Bread", "Butter",  "Jam", "Poori", "Potato Masala", "Wheat Upma", "Chutney", "Tea/Coffee/Milk"],
-    ["Sweet", "Chapathi", "Aloo Mattar Masala", "Maisoore Dal", "Veg Biyani", "Mix Raihta", "Variety Rice", "Rasam", "Curd Rice", "Butter Milk", "Pickle",  "Fryums"],
+    ["Sweet", "Chapathi", "Aloo Mattar Masala", "Maisoore Dal", "Veg Biryani", "Mix Raihta", "Variety Rice", "Rasam", "Curd Rice", "Butter Milk", "Pickle",  "Fryums"],
     ["Cake / Fruit Cake", "Tea/Coffee"],
     ["Chapati", "Veg Manchurian", "Veg fried Rice (or) Veg Noodles", "Steamed Rice", "Dal Maharani", "Sambar", "Rasam", "Fryums", "Veg salad", "Milk", "Special Fruit", "Non-Veg Gravy"]],
     // Saturday
