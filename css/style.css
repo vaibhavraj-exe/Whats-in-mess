@@ -47,6 +47,13 @@ ul {
     color: aliceblue;
 }
 
+#current {
+    display: inline-block;
+    margin: 10px;
+    font-weight: bold;
+    color: aliceblue;
+}
+
 #next {
     display: inline-block;
     margin: 10px;
