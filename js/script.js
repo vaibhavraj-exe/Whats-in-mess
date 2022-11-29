@@ -1,5 +1,4 @@
-
-let messDict =[
+const messDict = [
     // Sunday
     [["Bread", "Butter", "Jam", "Chole Bhature", "Veg Upma", "Chutney", "Tea/Coffee/Milk"],
     ["Chapathi", "Chicken (Pepper / Kadai)", "Paneer Butter Masala", "Dal Dhadka", "Mint Pulao/Steamed Rice", "Rasam", "Poriyal", "Butter Milk", "Fryums", "Pickle"],
@@ -34,224 +33,94 @@ let messDict =[
     [["Bread", "Butter", "Jam", "Chappathi", "Veg Khorma", "Idiyappam (Tomato & Lemon)", "Chutney", "Tea/Coffee/Milk", "Boiled Egg"],
     ["Poori", "White peas Curry", "Aloo Bindli sabji", "Bahara Pulao / Steamed Rice", "Tomato Dal", "Paruppu Urundai Kozhambu", "Kootu", "Rasam", "Buttermilk", "Pickle", "Fryums"],
     ["Samosa / Aloo Bonda", "Tea/Coffee"],
-    ["Panjabi Paratha", "Aloo Capsicum Sabji", "Steamed Rice", "Rajma curry", "Masala Dal", "Idly", "Chutney", "Sambar", "Poriyal", "Rasam", "Pickle", "Fryums", "Veg salad", "Milk", "Seasonal Fruits", "Fish Gravy"]],
-
+    ["Panjabi Paratha", "Aloo Capsicum Sabji", "Steamed Rice", "Rajma curry", "Masala Dal", "Idly", "Chutney", "Sambar", "Poriyal", "Rasam", "Pickle", "Fryums", "Veg salad", "Milk", "Seasonal Fruits", "Fish Gravy"]],    
 ]
-    
+
+const mealInfo = {
+    0: { time: 9, meal: "Breakfast", text: "Working day 7:00 - 9:00, Holiday 7:30 - 9:00" },
+    1: { time: 13.5, meal: "Lunch", text: "Working day 11:30 - 1:30, Holiday 12:00 - 1:30" },
+    2: { time: 17.5, meal: "Snacks", text: "4:30 - 5:30" },
+    3: { time: 21, meal: "Dinner", text: "7:30 - 9:00" },
+}
+
 let now = new Date();
-let day = now.getDay()
-let hrs = now.getHours()
-let min = now.getMinutes()
+let day = now.getDay();
+let hour = now.getHours();
+let minute = now.getMinutes();
 
-let current = "breakfast"
+// 0: breakfast, 1: lunch, 2: snacks, 3: dinner
+let meal = 0;
 
-const setBreakfastRoutine = () => {
-    let header = document.createElement("H3")
-    let headerText = document.createTextNode("BREAKFAST (Working day 7:00 - 9:00, Holiday 7:30 - 9:00)")
-    header.appendChild(headerText)
-    document.getElementById("header").appendChild(header)
-    
-    messDict[day][0].forEach(e => {
-        let node = document.createElement("li")
-        let textnode = document.createTextNode("🔷 "+ e)
-        node.appendChild(textnode)
-        node.setAttribute("class", "list-group-item");
-        document.getElementById("foodlist").appendChild(node);
-    })
+const returnWeekDay = (day) => {
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[day];
 }
 
-const setLunchRoutine = () => {
-    let header = document.createElement("H3")
-    let headerText = document.createTextNode("LUNCH (Working day 11:30 - 1:30, Holiday 12:00 - 1:30)")
-    header.appendChild(headerText)
-    document.getElementById("header").appendChild(header)
-    
-    messDict[day][1].forEach(e => {
-        let node = document.createElement("li")
-        let textnode = document.createTextNode("🔷 "+ e)
-        node.appendChild(textnode)
-        node.setAttribute("class", "list-group-item");
-        document.getElementById("foodlist").appendChild(node);
-    })
-}
-
-const setSnacksRoutine = () => {
-    let header = document.createElement("H3")
-    let headerText = document.createTextNode("Snacks (4:30 - 5:30)")
-    header.appendChild(headerText)
-    document.getElementById("header").appendChild(header)
-
-    messDict[day][2].forEach(e => {
-        let node = document.createElement("li")
-        let textnode = document.createTextNode("🔷 "+ e)
-        node.appendChild(textnode)
-        node.setAttribute("class", "list-group-item");
-        document.getElementById("foodlist").appendChild(node);
-    })
-}
-
-const setDinnerRoutine = () =>{
-    let header = document.createElement("H3")
-    let headerText = document.createTextNode("DINNER 7:30 - 9:00")
-    header.appendChild(headerText)
-    document.getElementById("header").appendChild(header)
-    
-    messDict[day][3].forEach(e => {
-        let node = document.createElement("li")
-        let textnode = document.createTextNode("🔷 "+ e)
-        node.appendChild(textnode)
-        node.setAttribute("class", "list-group-item");
-        document.getElementById("foodlist").appendChild(node);
-    })
-}
-
-const returnWeekDay = (dayNumber) => {
-    switch (dayNumber) {
-        case 0:
-            return "Sunday"
-        case 1:
-            return "Monday"
-        case 2:
-            return "Tuesday"
-        case 3:
-            return "Wednesday"
-        case 4:
-            return "Thursday"
-        case 5:
-            return "Friday"
-        case 6:
-            return "Saturday"
-        default:
+const getCurrentMeal = () => {
+    let meal = 0;
+    hour = hour + minute / 60;
+    for (let i = 0; i < 4; i++) {
+        if (hour < mealInfo[i].time) {
+            meal = i;
             break;
+        }
     }
+    hour > 21 ? day = (day + 1) % 7 : day;
+    return meal;
 }
 
-const updateDay = (day) => {
-    let weekday = document.getElementById("day")
-    weekday.innerHTML=""
-    weekday.innerHTML= returnWeekDay(day)
+const getMeal = (day, meal) => {
+    let header = document.createElement("H3")
+    document.getElementById("header").innerHTML = `${mealInfo[meal].meal} (${mealInfo[meal].text})`
+    document.getElementById("day").innerHTML = returnWeekDay(day);
+    document.getElementById("foodlist").innerHTML = ""
+
+    messDict[day][meal]?.forEach(item => {
+        let node = document.createElement("LI");
+        let textnode = document.createTextNode("🔷 "+ item)
+        node.appendChild(textnode);
+        node.setAttribute("class", "list-group-item");
+        document.getElementById("foodlist").appendChild(node);
+    });
 }
 
-if (hrs < 9) {
-    current = "breakfast"
-    setBreakfastRoutine()
-}else if (hrs < 13){
-    current = "lunch"
-    setLunchRoutine()
-}else if (hrs == 13 && min < 30){
-    current = "lunch"
-    setLunchRoutine()
-}else if (hrs < 17){
-    current = "snacks"
-    setSnacksRoutine()
-}else if (hrs == 17 && min < 30){
-    current = "snacks"
-    setSnacksRoutine()
-}else if (hrs < 24){
-    current = "dinner"
-    setDinnerRoutine()
-}
-// }else if (hrs < 24){
-//     let header = document.createElement("H3")
-//     let headerText = document.createTextNode("404 GOOD NIGHT 🌙")
-//     header.appendChild(headerText)
-//     document.getElementById("header").appendChild(header)
-// }
+document.getElementById("previous").addEventListener("click", () => {
+    if (meal == 0) {
+        meal = 3;
+        day--;
+    } else meal--;
+    getMeal(day = day == -1 ? 6 : day, meal);
+})
 
+document.getElementById("next").addEventListener("click", () => {
+    if (meal == 3) {
+        meal = 0;
+        day++;
+    } else meal++;
 
-document.getElementById("previous").onclick = () => {
-    
-    switch (current) {
-        case "breakfast":
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
+    getMeal(day = day == 7 ? 0 : day, meal);
+})
 
-            if(day!=0){
-                day-=1;
-            }else {
-                day = 6;
-            }
-            
-            updateDay(day)
-            setDinnerRoutine();
-            current = "dinner"
-            break;
-        case "lunch":
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-            setBreakfastRoutine()
-            current = "breakfast"
-            break
-        case "snacks" :
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-            setLunchRoutine()
-            current = "lunch"
-            console.log("snacks")
-            break
-        case "dinner":
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-            setSnacksRoutine()
-            current = "snacks"
-        default:
-            break;
+document.getElementById("current").addEventListener("click", () => {
+    day = new Date().getDay();
+    meal = getCurrentMeal(new Date().getHours(), new Date().getMinutes());
+    getMeal(day, meal);
+})
+
+document.addEventListener('keydown', function(event) {
+    if (event.key == "ArrowRight" || event.key == "ArrowDown") {
+        document.getElementById("next").click();
     }
-}
-
-document.getElementById("next").onclick = () => {
-    
-    switch (current) {
-        case "breakfast":
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-            setLunchRoutine()
-            current = "lunch"
-            break;
-        case "lunch":
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-            setSnacksRoutine()
-            current = "snacks"
-            break
-        case "snacks" :
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-            setDinnerRoutine()
-            current = "dinner"
-            break
-        case "dinner":
-            document.getElementById("foodlist").innerHTML = ""
-            document.getElementById("header").innerHTML = ""
-
-            if (day!=6){
-                day+=1;
-            }else {
-                day = 0;
-            }
-            
-            updateDay(day)
-            setBreakfastRoutine()
-            current= "breakfast";
-            break
-        default:
-            break;
+    else if (event.key == "ArrowLeft" || event.key == "ArrowUp") {
+        document.getElementById("previous").click();
     }
-}
-
-
-// Add to home screen 
+    else if (event.key == "Enter" || event.key == "Backspace") {
+        document.getElementById("current").click();
+    }
+});
 
 window.onload = (e) => {
     e.preventDefault();
-
-}
-
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").then(regesration => {
-        console.log(regesration)
-    }).catch(e => {
-        console.log("SW regestration failed")
-        console.log(e)
-    })
+    meal = getCurrentMeal();
+    getMeal(day, meal);
 }
